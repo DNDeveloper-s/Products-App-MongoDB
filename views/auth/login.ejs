@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<main class="centered">
+    <h3 class="stayLeft anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">Login!</h3>
+    <% if(errorMessage) { %>
+        <div class="error_popup"><%= errorMessage %></div>
+    <% } %>
+    <form class="add-product__form anim" data-animchilddelays="0.05" action="/login" method="POST">
+        <label class="add-product__label" for="email">Email</label>
+        <input class="add-product__input <%= validationErrors.find(i => i.param === 'email') ? 'invalid' : '' %>" type="email" name="email" value="<%= oldInput.email %>">
+        <label class="add-product__label" for="password">Password</label>
+        <input class="add-product__input <%= validationErrors.find(i => i.param === 'password') ? 'invalid' : '' %>" type="password" name="password" value="<%= oldInput.password %>">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 400px; padding: 30px 0">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="add-product__button login" type="submit">Login</button>
+            <div>
+                <a style="text-decoration: underline; font-weight: 700; text-shadow: 0 2px 3px rgba(0,0,0,0.5); color: #eba60d;" class="add-to-cart" href="/reset">Reset Password ?</a>
+            </div>
+        </div>
+    </form>
+</main>
+<script>
+    let titleInput = document.querySelector('.add-product__input');
+    titleInput.focus();
+</script>
+<%- include('../includes/end.ejs') %>

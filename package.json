@@ -1,0 +1,41 @@
+{
+  "name": "first-time-expressJs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "MONGO_USER=dndeveloper MONGO_PWD=Saurabh6162 MONGO_DEFAULT_DATABASE=deployedShop node app.js",
+    "clearImage": "node scripts/clearImage.js",
+    "start:dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "aws-sdk": "^2.593.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^2.2.0",
+    "csurf": "^1.10.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.0.2",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.3.0",
+    "mongodb": "^3.4.0",
+    "mongoose": "^5.8.1",
+    "multer": "^1.4.2",
+    "mysql2": "^2.0.2",
+    "otp-generator": "^1.1.0",
+    "pdfkit": "^0.11.0",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.3"
+  }
+}

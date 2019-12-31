@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/shop.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs'), {isAuthenticated: isAuthenticated} %>
+
+    <main>
+        <% if(products.length > 0) { %>
+            <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">Your Cart</h3>
+            <ul class="cart-list anim" data-animDelay="0.4" data-animDirection="topToBottom">
+                <% for(product of products) { %>
+                    <li class="cart-list__item">
+                        <h4 class="cart-list__item-title"><%= product.productId.title %></h4>
+                        <p>Qty: <%= product.quantity %></p>
+                        <h4 class="cart--item__price">$<%= product.productId.price.toFixed(2) %></h4>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="button" onclick="deleteCartItem({
+                                prodId: '<%= product.productId._id %>',
+                                csrfToken: '<%= csrfToken %>',
+                                cb: this,
+                        })" class="add-to-cart">Delete</button>
+                        <input type="hidden" value="<%= product.productId._id %>" name="productId">
+                    </li>
+                <% } %>
+            </ul>
+            <div class="centered order-now-container show">
+                <form action="/create-order" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="add-to-cart">Order Now!</button>
+                </form>
+            </div>
+        <% } else { %>
+            <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">No Products are added to cart yet.</h3>
+        <% } %>
+    </main>
+
+
+<%- include('../includes/end.ejs') %>

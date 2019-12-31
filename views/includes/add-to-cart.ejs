@@ -1,0 +1,11 @@
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<button type="button" data-prodId="<%= product._id %>" class="add-to-cart addToCartBtn" onclick="addToCart(this)">Add to Cart
+    <div class="loader-container">
+        <svg width="40" height="40">
+            <circle class="loader" cx="20" cy="20" r="17"></circle>
+        </svg>
+    </div>
+</button>
+<% if(isAuthenticated) { %>
+    <input type="hidden" name="productId" value="<%= product._id %>">
+<% } %>

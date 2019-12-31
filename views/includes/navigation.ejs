@@ -1,0 +1,64 @@
+<header class="main-header">
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list anim">
+            <li class="main-header__item">
+                <i class="large material-icons <%= path === '/' ? 'active' : '' %>">home</i>
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+            </li>
+            <li class="main-header__item">
+                <i class="large material-icons <%= path === '/products' ? 'active' : '' %>">devices</i>
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+            </li>
+        </ul>
+        <ul class="main-header__item-list anim">
+            <% if(isAuthenticated) { %>
+                <li class="main-header__item userImg" title="<%= !user.isEmailVerified ? 'User not verified.' : '' %>">
+                    <img class="user__nav--img" src="<%= user.dp ? '/' + user.dp : "/images/yash.jpg" %>" alt="">
+                    <% if(user && !user.isEmailVerified) { %>
+                        <img class="not__verified" src="/images/warning.png" alt="">
+                    <% } %>
+                    <a class="<%= path === '/user-profile' ? 'active' : '' %>" href="/profile?userId=<%= user._id %>"><%= user.name %>%></a>
+                    <i class="large material-icons">arrow_drop_down</i>
+                    <ul class="drop__down-list">
+                        <li class="drop__down-list--item">
+                            <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+                            <i class="large material-icons">add_box</i>
+                        </li>
+                        <li class="drop__down-list--item">
+                            <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">My Products</a>
+                            <i class="large material-icons">devices</i>
+                        </li>
+                        <li class="drop__down-list--item">
+                            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">My Cart</a>
+                            <i class="large material-icons">shopping_cart</i>
+                        </li>
+                        <li class="drop__down-list--item">
+                            <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">My Orders</a>
+                            <i class="large material-icons">event_available</i>
+                        </li>
+                        <li class="drop__down-list--item">
+                            <a class="<%= path === '/logout' ? 'active' : '' %>" href="/logout">Logout</a>
+                            <i class="large material-icons">exit_to_app</i>
+                        </li>
+                    </ul>
+                </li>
+            <% } else { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signUp">SignUp</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+    <% if(user && !user.isEmailVerified) { %>
+        <div class="verify-email show">
+            <p>Please verify your email to use all features.</p>
+            <form action="/verify-email" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn" type="submit">Verify</button>
+            </form>
+        </div>
+    <% } %>
+</header>

@@ -1,0 +1,27 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">Reset Your Password!</h3>
+    <% if(errorMessage) {%>
+        <div class="error_popup"><%= errorMessage %></div>
+    <% } %>
+    <form class="add-product__form anim" data-animchilddelays="0.05" action="/reset" method="POST">
+
+        <label class="add-product__label" for="email">Email</label>
+        <input class="add-product__input" type="email" name="email" required>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="add-product__button login" type="submit">Reset</button>
+
+    </form>
+</main>
+
+<script>
+    let titleInput = document.querySelector('.add-product__input');
+    titleInput.focus();
+</script>
+<%- include('../includes/end.ejs') %>

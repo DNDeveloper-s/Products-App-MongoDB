@@ -1,0 +1,33 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs'), {isAuthenticated: isAuthenticated} %>
+
+    <main>
+        <% if(orders.length > 0) { %>
+            <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">Your Orders</h3>
+            <ul class="order__list anim" data-animDirection="topToBottom">
+                <% for(order of orders) { %>
+                    <li class="order__list--item">
+                        <h3>Order -<span class="order__id"> # <%= order._id %></span></h3>
+                        <ul class="order__list--item-list">
+                            <% for (p of order.products) { %>
+                                <li class="order__list--item__product">
+                                    <p style="width: 300px" class="order-product__title"><%= p.product.title %></p>
+                                    <p style="width: 300px" class="order-product__quantity">Qty. <%= p.quantity %></p>
+                                    <p style="width: 80px; font-weight: 600; color: #000000; text-align: right">$<%= p.product.price * p.quantity %></p>
+                                </li>
+                            <% } %>
+                        </ul>
+                        <a class="btn invoice__link" href="./orders/<%= order._id %>">Get Invoice</a>
+                    </li>
+                <% } %>
+            </ul>
+        <% } else { %>
+            <h3>You have no Orders</h3>
+        <% } %>
+    </main>
+
+
+<%- include('../includes/end.ejs') %>

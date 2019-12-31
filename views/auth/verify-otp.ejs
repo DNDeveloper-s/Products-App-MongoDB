@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<main class="centered">
+    <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6">Verify Otp!</h3>
+    <% if(errorMessage) { %>
+        <div class="error_popup"><%= errorMessage %></div>
+    <% } %>
+    <form class="add-product__form anim" data-animchilddelays="0.05" action="/verify-otp" method="POST" style="position: relative">
+        <label class="add-product__label" for="enteredotp">Enter OTP</label>
+        <input class="add-product__input" type="number" name="enteredotp">
+
+        <div style="width: 400px; display: flex; align-items: center; justify-content: space-between">
+            <div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="add-product__button login" type="submit">Verify Otp</button>
+            </div>
+            <a style="text-decoration: underline; font-weight: 700; color: #0955ff" href="/resend-otp?mobile=<%= mobile %>">Resend OTP</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    let titleInput = document.querySelector('.add-product__input');
+    titleInput.focus();
+</script>
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,33 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs'), {isAuthenticated: isAuthenticated} %>
+
+    <main class="centered">
+        <h3 class="anim" data-animToChilds="false" data-animDirection="topToBottom" data-animDelay="0.6"><% if(editing) { %>Edit Product Here!<% } else { %>Add Product Here!<% } %></h3>
+        <% if(errorMessage) { %>
+            <div class="error_popup"><%= errorMessage %></div>
+        <% } %>
+        <form class="add-product__form anim" data-animchilddelays="0.05" action="/admin/<% if(editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST" enctype="multipart/form-data">
+            <label class="add-product__label" for="title">Title</label>
+            <input class="add-product__input <%= validationErrors.find(i => i.param === 'title') ? 'invalid' : '' %>" type="text" name="title" value="<%= editing ? product.title : oldInput.title %>">
+            <label class="add-product__label" for="image">Image</label>
+            <input class="add-product__input" type="file" name="image">
+            <label class="add-product__label" for="price">Price</label>
+            <input class="add-product__input <%= validationErrors.find(i => i.param === 'price') ? 'invalid' : '' %>" type="number" name="price" step="0.01" value="<%= editing ? product.price : oldInput.price %>">
+            <label class="add-product__label" for="description">Description</label>
+            <textarea class="<%= validationErrors.find(i => i.param === 'description') ? 'invalid' : '' %>" name="description" id="" cols="30" rows="7"><%= editing ? product.description : oldInput.description %></textarea>
+            <% if(editing) { %>
+                <input type="hidden" value="<%= product._id %>" name="productId">
+            <% } %>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="add-product__button" type="submit"><% if(editing) { %>Update Product<% } else { %>Add Product<% } %></button>
+        </form>
+    </main>
+
+    <script>
+        let titleInput = document.querySelector('.add-product__input');
+        titleInput.focus();
+    </script>
+<%- include('../includes/end.ejs') %>

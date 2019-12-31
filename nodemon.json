@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USER": "dndeveloper",
+    "MONGO_PWD": "Saurabh6162",
+    "MONGO_DEFAULT_DATABASE": "shop"
+  }
+}
